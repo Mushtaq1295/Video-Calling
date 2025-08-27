@@ -1,32 +1,25 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
-    fullName:
-        { type: String, required: true },
 
-    email:
-        {type: String, required: true, unique: true },
+    fullName: { type: String, required: true },
 
-    password: 
-        {type: String, required: true, minlength: 6},
+    email: {type: String, required: true, unique: true },
 
-    bio:
-        {type: String, default: ""},
+    password: {type: String, required: true, minlength: 6},
 
-    profilePic:
-         {type: String, default: ""},
+    bio: {type: String, default: ""},
 
-    nativeLanguage: 
-        {type: String, default: ""},
+    profilePic: {type: String, default: ""},
 
-    learningLanguage:
-         {type: String, default: ""},
+    nativeLanguage: {type: String, default: ""},
 
-    location:
-         {type: String, default: ""},
+    learningLanguage: {type: String, default: ""},
 
-    isOnBoarded: 
-        {type: Boolean, default: false},
+    location: {type: String, default: ""},
+
+    isOnBoarded: {type: Boolean, default: false},
 
     friends: 
         [
@@ -39,11 +32,9 @@ const userSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-const User = mongoose.model("User",userSchema);
-
 //prehook
 userSchema.pre("save",async function(next){
-    if(!this.isMofified("password")) return next();
+    if(!this.isModified("password")) return next();
     //123456 => kjnber
     try {
         const salt = await bcrypt.genSalt(10);
@@ -53,5 +44,8 @@ userSchema.pre("save",async function(next){
         next(error);
     }
 })
+
+const User = mongoose.model("User",userSchema);
+
 
 export default User;

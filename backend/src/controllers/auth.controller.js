@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 
 export async function signup(req, res) {
     const {fullName, email, password} = req.body;
-
     try {
         if(!fullName || !email || !password) {
             return res.status(400).json({message:'All Fields are required'});
@@ -13,7 +12,7 @@ export async function signup(req, res) {
         }
         //email validation regular Expression
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+        
         if(!emailRegex.test(email)){
             return res.status(400).json({message:'Invalid Email format'});
         }
@@ -33,7 +32,7 @@ export async function signup(req, res) {
             profilePic: randomAvatar,
         });
 
-        const token = jwt.sign({userId: newUser._id}, process.env.JWT_SECRET_KEY, {
+        const token = jwt.sign({userId:newUser._id}, process.env.JWT_SECRET_KEY || 'supersecretjwtkey', {
             expiresIn: '7d'
         })
 
