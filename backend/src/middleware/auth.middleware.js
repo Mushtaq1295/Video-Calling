@@ -9,6 +9,7 @@ export const protectRoute = async(req, res, next) => {
         }
         console.log('token',token)
         console.log("JWT Secret:", process.env.JWT_SECRET_KEY);
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         console.log("decoded",decoded)
         if(!decoded){
