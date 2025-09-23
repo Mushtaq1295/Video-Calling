@@ -9,6 +9,11 @@ function App() {
   return (
     <>
       <h1>Hello from App.jsx</h1>
+      <p>Jack and Jones</p>
+      <p>Honey</p>
+      <p>kane</p>
+      <p>Ahamad</p>
+      <p>william</p>
        
     </>
   )
