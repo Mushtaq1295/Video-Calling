@@ -11,7 +11,7 @@ export async function signup(req, res) {
         }
         if (password.length < 6){
             return res.status(400).json({message: 'Password must be atleast 6 characters'});
-        }
+        }  
         //email validation regular Expression
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         
@@ -25,6 +25,7 @@ export async function signup(req, res) {
         }
 
         const idx = Math.floor(Math.random() * 100) + 1;
+        console.log(idx);  
         const randomAvatar = `https://avatar.iran.liara.run/public/${idx}`;
 
         const newUser = await User.create({
