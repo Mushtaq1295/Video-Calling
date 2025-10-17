@@ -8,10 +8,17 @@ import chatRoutes from './routes/chat.route.js'
 
 import { connectDB } from './lib/db.js';
 
+import cors from 'cors'
+
 
 
 const app = express();
 const PORT = process.env.PORT;
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true, //allow frontend to send cookies
+}))
 
 app.use(express.json())  //to get the data in json format from the request body
 app.use(cookieParser()) //to parse the cookies from the request
